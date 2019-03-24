@@ -34,7 +34,7 @@ class CitationRecNet(object):
         input parameter
         """ 
         # 问题： 等式右边的是不是上面那行init后面括号里的参数
-        self.layer1_dim = layer1_dim
+        self.layer1_dim = layer1_dim #否则传不到MLP() 里面，要不然MLP() function 得写成MLP(layer1_dim) 的形式 
         self.layer2_dim = layer2_dim
         self.x_dim = x_dim
         self.y_dim = y_dim 
@@ -54,7 +54,7 @@ class CitationRecNet(object):
         """
         # predict data: label
         self.y_pred = self.MLP()
-        
+        self.y_pred_softmax = tf.nn.softmax(self.y_pred)
         """
         model training 
         """

@@ -34,7 +34,7 @@ def run(args):
 
     #load data
     X_train = np.loadtxt(args.path+'mlp-train-ci-vec')
-    X_test = np.loadtxt(args.path+'/mlp-test-ci-vec')
+    X_test = np.loadtxt(args.path+'mlp-test-ci-vec')
 
     Y_train = []
     with open(args.path+'train-label', 'r') as f:
@@ -72,8 +72,8 @@ def run(args):
 
         for i in range(config.EPOCH):
             for j in range(STEPS):
-                start = (i*BATCH_SIZE) % DATA_NUM
-                end = ((i+1)*BATCH_SIZE) % DATA_NUM
+                start = (j*BATCH_SIZE) % DATA_NUM
+                end = ((j+1)*BATCH_SIZE) % DATA_NUM
                 # 问题 为什么这里也有keep_pro这个参数？
                 # 问题 这里的model.y_指的是训练集对应的label呗
 
@@ -89,9 +89,9 @@ def run(args):
                 
                 if j % 100 == 0:
                     
-                    y_pred, total_cross_entropy = sess.run((model.y, model.loss), feed_dict={model.x: train_X, model.y: train_Y})
+                    y_pred, total_cross_entropy = sess.run((model.y_pred_softmax, model.loss), feed_dict={model.x: train_X, model.y: train_Y})
                     print("After %d training step(s), cross entropy on all data is %g" % (j, total_cross_entropy))
-                    # print("training y and real y difference:", Y_train[0:2], y_pred[0:2])
+                    print("training y and real y difference:", train_Y[0:1], y_pred[0:1])
             # pre_Y = sess.run(y, feed_dict={x: X_test, keep_prob: 1.0})
             # for pred, real in zip(pre_Y, Y_test):
             #     print(pred, real)
