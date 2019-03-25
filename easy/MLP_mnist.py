@@ -31,7 +31,7 @@ def parse_args():
 def run(args):
     config = Config(args)  # get all configurations
 
-    mnist = input_data.read_data_sets(args.path, one_hot=False)
+    mnist = input_data.read_data_sets(args.path, one_hot=True)
     # print(mnist.train.images,mnist.train.labels,mnist.test.images,mnist.test.labels)
 
     #load data
@@ -40,7 +40,7 @@ def run(args):
 
     Y_train = mnist.train.labels
     Y_test = mnist.test.labels
-    
+
     print("check data:",type(X_train),type(Y_train),len(X_train),len(Y_train),len(X_train[0]),len(Y_train[0]))
 
     BATCH_SIZE = args.batch_size
