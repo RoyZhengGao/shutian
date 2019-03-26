@@ -55,6 +55,10 @@ class CitationRecNet(object):
         # predict data: label
         self.y_pred = self.MLP()
         self.y_pred_softmax = tf.nn.softmax(self.y_pred)
+
+        #acc
+        self.acc = tf.equal(tf.argmax(y_pred_softmax,1),tf.argmax(self.y,1))
+        self.acc = tf.reduce_mean(tf.cast(self.acc,tf.float32))
         """
         model training 
         """

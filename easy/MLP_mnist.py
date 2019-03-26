@@ -79,8 +79,8 @@ def run(args):
                 
                 if j % 100 == 0:
                     
-                    y_pred, total_cross_entropy = sess.run((model.y_pred_softmax, model.loss), feed_dict={model.x: X_test, model.y: Y_test})
-                    print("After %d training step(s), cross entropy on all data is %g" % (j, total_cross_entropy))
+                    y_pred, total_cross_entropy,acc = sess.run((model.y_pred_softmax, model.loss, model.acc), feed_dict={model.x: X_test, model.y: Y_test})
+                    print("After %d training step(s), cross entropy on all data is %g, accuracy is %g" % (j, total_cross_entropy,acc))
                     # print("training y and real y difference:", train_Y[0:1], y_pred[0:1])
             # pre_Y = sess.run(y, feed_dict={x: X_test, keep_prob: 1.0})
             # for pred, real in zip(pre_Y, Y_test):
