@@ -75,10 +75,10 @@ class CitationRecNet(object):
             self.b2 = tf.get_variable("b2", initializer= tf.zeros([self.layer2_dim]), dtype=tf.float32)
         with tf.variable_scope("output"):
             self.W3 = tf.get_variable("w_output", initializer=tf.random_normal([self.layer2_dim, self.y_dim], stddev=0.1), dtype=tf.float32)
-        
-        hidden1 = tf.nn.relu(tf.matmul(self.x, self.W1) + self.b1)  
-        hidden2 = tf.nn.relu(tf.matmul(hidden1, self.W2) + self.b2)  
-        y_pred = tf.matmul(hidden2, self.W3)
+            self.b3 = tf.get_variable("b3", initializer= tf.zeros([self.y_dim]), dtype=tf.float32)
+        hidden1 = tf.nn.sigmoid(tf.matmul(self.x, self.W1) + self.b1)  
+        hidden2 = tf.nn.sigmoid(tf.matmul(hidden1, self.W2) + self.b2)  
+        y_pred = tf.matmul(hidden2, self.W3 + self.b3)
         return y_pred
 
     def CNN(self):
